@@ -26,14 +26,15 @@ const invites = {
    ========================= */
 const DEBUG = true;
 const formBaseUrl =
-  "https://forms.gle/okvLtbJuUCz11CTL8?usp=pp_url&entry.1068490562=";
+  "https://docs.google.com/forms/d/e/1FAIpQLSeDNLcKMmbQiuglu6eKyJZtPNrqDWbvDxGQ-BBvwXv3ro_XfA/viewform?usp=pp_url&entry.1068490562=";
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
-const finalUrl = formBaseUrl + code;
 
 /* =========================
    3. MAIN LOGIC
    ========================= */
+
+const redirectDelay = DEBUG ? 8000 : 2000;
 
 if (!code) {
 
@@ -42,32 +43,34 @@ if (!code) {
 
 } else if (invites[code]) {
 
-if (DEBUG) {
-  document.getElementById("status").innerHTML =
-    "Valid invite.<br><br>" +
-    "Redirecting in 30 seconds...<br><br>" +
-    "<code style='word-break:break-all;'>" + finalUrl + "</code>";
-} else {
-  document.getElementById("status").innerText =
-    "Valid invite. Redirecting...";
-}
+  const finalUrl = formBaseUrl + code;
+
+  if (DEBUG) {
+    document.getElementById("status").innerHTML =
+      "Valid invite.<br><br>" +
+      "Redirecting in " + (redirectDelay / 1000) + " seconds...<br><br>" +
+      "<code style='word-break:break-all;'>" + finalUrl + "</code>";
+  } else {
+    document.getElementById("status").innerText =
+      "Valid invite. Redirecting...";
+  }
+
   setTimeout(() => {
     window.location.href = finalUrl;
-  }, 30000);
+  }, redirectDelay);
 
 } else {
 
-if (DEBUG) {
-  document.getElementById("status").innerHTML =
-    "Invalid or expired invitation code.<br><br>" +
-    "<code style='word-break:break-all;'>" + finalUrl + "</code>";
-} else {
-  document.getElementById("status").innerText =
-    "Invalid or expired invitation code.";
-}
+  if (DEBUG) {
+    document.getElementById("status").innerHTML =
+      "Invalid or expired invitation code.<br><br>" +
+      "<strong>Received code:</strong> " + code;
+  } else {
+    document.getElementById("status").innerText =
+      "Invalid or expired invitation code.";
+  }
 
 }
-
 </script>
 
 </body>
