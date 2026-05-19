@@ -6,71 +6,82 @@
 
 <body style="font-family: Arial; text-align: center; margin-top: 80px;">
   <h2>Mambernetics Invitation Check</h2>
-  <p id="status">Checking invitation...</p>
+  <p id="status">Loading invitation system...</p>
 
 <script>
 
-/* =========================
-   1. INVITATION DATABASE
-   ========================= */
-const invites = {
-  "ABC123": true,
-  "Q7M4K8XN": true,
-  "R6T9H3VC": true
-};
-
-/* =========================
-   2. READ CODE FROM URL
-   Example:
-   ?code=ABC123
-   ========================= */
 const DEBUG = true;
+
 const formBaseUrl =
   "https://docs.google.com/forms/d/e/1FAIpQLSeDNLcKMmbQiuglu6eKyJZtPNrqDWbvDxGQ-BBvwXv3ro_XfA/viewform?usp=pp_url&entry.1068490562=";
+
+let invites = {};
+let redirectDelay = DEBUG ? 8000 : 2000;
+
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 
 /* =========================
-   3. MAIN LOGIC
+   LOAD invites.json
    ========================= */
-
-const redirectDelay = DEBUG ? 8000 : 2000;
-
-if (!code) {
-
-  document.getElementById("status").innerHTML =
-    "No invitation code provided.";
-
-} else if (invites[code]) {
-
-  const finalUrl = formBaseUrl + code;
-
-  if (DEBUG) {
-    document.getElementById("status").innerHTML =
-      "Valid invite.<br><br>" +
-      "Redirecting in " + (redirectDelay / 1000) + " seconds...<br><br>" +
-      "<code style='word-break:break-all;'>" + finalUrl + "</code>";
-  } else {
+async function loadInvites() {
+  try {
+    const response = await fetch("invites.json");
+    invites = await response.json();
+    runLogic();
+  } catch (err) {
     document.getElementById("status").innerText =
-      "Valid invite. Redirecting...";
+      "Error loading invitation data.";
+    console.error(err);
   }
-
-  setTimeout(() => {
-    window.location.href = finalUrl;
-  }, redirectDelay);
-
-} else {
-
-  if (DEBUG) {
-    document.getElementById("status").innerHTML =
-      "Invalid or expired invitation code.<br><br>" +
-      "<strong>Received code:</strong> " + code;
-  } else {
-    document.getElementById("status").innerText =
-      "Invalid or expired invitation code.";
-  }
-
 }
+
+/* =========================
+   MAIN LOGIC
+   ========================= */
+function runLogic() {
+
+  if (!code) {
+
+    document.getElementById("status").innerHTML =
+      "No invitation code provided.";
+
+  } else if (invites[code]?.active) {
+
+    const finalUrl = formBaseUrl + code;
+
+    if (DEBUG) {
+      document.getElementById("status").innerHTML =
+        "Valid invite.<br><br>" +
+        "Redirecting in " + (redirectDelay / 1000) + " seconds...<br><br>" +
+        "<code style='word-break:break-all;'>" + finalUrl + "</code>";
+    } else {
+      document.getElementById("status").innerText =
+        "Valid invite. Redirecting...";
+    }
+
+    setTimeout(() => {
+      window.location.href = finalUrl;
+    }, redirectDelay);
+
+  } else {
+
+    if (DEBUG) {
+      document.getElementById("status").innerHTML =
+        "Invalid or expired invitation code.<br><br>" +
+        "<strong>Received code:</strong> " + code;
+    } else {
+      document.getElementById("status").innerText =
+        "Invalid or expired invitation code.";
+    }
+  }
+}
+
+/* =========================
+   START APP
+   ========================= */
+loadInvites();
+
 </script>
 
 </body>
