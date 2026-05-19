@@ -4,7 +4,37 @@
   <title>Mambernetics Invite Router</title>
 </head>
 <body style="font-family: Arial; text-align: center; margin-top: 80px;">
-  <h1>Invite Router Active</h1>
-  <p>If you see this, GitHub Pages is working.</p>
+  <h2>Checking invitation...</h2>
+  <p id="status">Please wait</p>
+
+<script>
+const invites = {
+  "ABC123": true,
+  "Q7M4K8XN": true,
+  "R6T9H3VC": true
+};
+
+// Extract path after /
+const path = window.location.pathname.replace("/", "").trim();
+
+// If no code provided
+if (!path) {
+  document.getElementById("status").innerText =
+    "No invitation code provided.";
+} else if (invites[path]) {
+  document.getElementById("status").innerText =
+    "Valid invite. Redirecting...";
+
+// 🔁 REDIRECT TO GOOGLE FORM (replace with your real URL)
+  setTimeout(() => {
+    window.location.href =
+      "https://forms.gle/okvLtbJuUCz11CTL8?usp=pp_url&entry.1068490562=" + path;
+  }, 1000);
+
+} else {
+  document.getElementById("status").innerText =
+    "Invalid or expired invitation code.";
+}
+</script>
 </body>
 </html>
