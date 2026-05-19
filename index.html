@@ -6,7 +6,7 @@
 
 <body style="font-family: Arial; text-align: center; margin-top: 80px;">
   <h2>Mambernetics Invitation Check</h2>
-  <p id="status">Loading invitation system...</p>
+  <p id="status">Loading...</p>
 
 <script>
 
@@ -15,48 +15,60 @@ const DEBUG = true;
 const formBaseUrl =
   "https://docs.google.com/forms/d/e/1FAIpQLSeDNLcKMmbQiuglu6eKyJZtPNrqDWbvDxGQ-BBvwXv3ro_XfA/viewform?usp=pp_url&entry.1068490562=";
 
+/* =========================
+   STATE
+   ========================= */
 let invites = {};
-let redirectDelay = DEBUG ? 8000 : 2000;
-
-const params = new URLSearchParams(window.location.search);
-const code = params.get("code");
+let code = "";
 
 /* =========================
-   LOAD invites.json
+   1. INPUT PHASE
+   ========================= */
+function getCodeFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("code");
+}
+
+/* =========================
+   2. LOAD PHASE
    ========================= */
 async function loadInvites() {
   try {
-    console.log("Loading invites.json...");
+    const res = await fetch("invites.json?v=" + Date.now());
+    invites = await res.json();
 
-    const response = await fetch("invites.json?v=" + Date.now());
-
-    console.log("HTTP status:", response.status);
-
-    invites = await response.json();
-
-    console.log("Loaded invites:", invites);
-
-    runLogic();
+    runApp(); // ONLY runs AFTER data is ready
 
   } catch (err) {
-
     document.getElementById("status").innerText =
-      "Error loading invitation data.";
-
-    console.error("FETCH FAILED:", err);
+      "Failed to load invitation data.";
+    console.error(err);
   }
 }
+
 /* =========================
-   MAIN LOGIC
+   3. RUN PHASE (CORE LOGIC)
    ========================= */
-function runLogic() {
+function runApp() {
+
+  const redirectDelay = DEBUG ? 8000 : 2000;
+
+  code = getCodeFromUrl();
+
+  console.log("Code received:", code);
+  console.log("Invites loaded:", invites);
 
   if (!code) {
 
     document.getElementById("status").innerHTML =
       "No invitation code provided.";
 
-  } else if (invites[code]?.active) {
+    return;
+  }
+
+  const invite = invites[code];
+
+  if (invite && invite.status === "active") {
 
     const finalUrl = formBaseUrl + code;
 
@@ -78,8 +90,8 @@ function runLogic() {
 
     if (DEBUG) {
       document.getElementById("status").innerHTML =
-        "Invalid or expired invitation code.<br><br>" +
-        "<strong>Received code:</strong> " + code;
+        "Invalid or inactive invitation code:<br><br>" +
+        "<code style='word-break:break-all;'>" + code + "</code>";
     } else {
       document.getElementById("status").innerText =
         "Invalid or expired invitation code.";
@@ -88,7 +100,7 @@ function runLogic() {
 }
 
 /* =========================
-   START APP
+   START APP (ONLY ENTRY POINT)
    ========================= */
 loadInvites();
 
