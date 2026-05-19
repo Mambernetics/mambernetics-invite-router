@@ -26,16 +26,26 @@ const code = params.get("code");
    ========================= */
 async function loadInvites() {
   try {
-    const response = await fetch("invites.json");
+    console.log("Loading invites.json...");
+
+    const response = await fetch("invites.json?v=" + Date.now());
+
+    console.log("HTTP status:", response.status);
+
     invites = await response.json();
+
+    console.log("Loaded invites:", invites);
+
     runLogic();
+
   } catch (err) {
+
     document.getElementById("status").innerText =
       "Error loading invitation data.";
-    console.error(err);
+
+    console.error("FETCH FAILED:", err);
   }
 }
-
 /* =========================
    MAIN LOGIC
    ========================= */
