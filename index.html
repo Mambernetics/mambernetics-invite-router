@@ -3,32 +3,47 @@
 <head>
   <title>Mambernetics Invite Router</title>
 </head>
+
 <body style="font-family: Arial; text-align: center; margin-top: 80px;">
-  <h2>Checking invitation...</h2>
-  <p id="status">Please wait</p>
+  <h2>Mambernetics Invitation Check</h2>
+  <p id="status">Checking invitation...</p>
 
 <script>
+
+/* =========================
+   1. INVITATION DATABASE
+   ========================= */
 const invites = {
   "ABC123": true,
   "Q7M4K8XN": true,
   "R6T9H3VC": true
 };
 
-// Extract path after /
-const path = window.location.pathname.replace("/", "").trim();
+/* =========================
+   2. READ CODE FROM URL
+   Example:
+   ?code=ABC123
+   ========================= */
+const formBaseUrl =
+  "https://forms.gle/okvLtbJuUCz11CTL8?usp=pp_url&entry.1068490562=";
+const params = new URLSearchParams(window.location.search);
+const code = params.get("code");
 
-// If no code provided
-if (!path) {
+/* =========================
+   3. MAIN LOGIC
+   ========================= */
+
+if (!code) {
   document.getElementById("status").innerText =
     "No invitation code provided.";
-} else if (invites[path]) {
+
+} else if (invites[code]) {
+
   document.getElementById("status").innerText =
     "Valid invite. Redirecting...";
 
-// 🔁 REDIRECT TO GOOGLE FORM (replace with your real URL)
   setTimeout(() => {
-    window.location.href =
-      "https://forms.gle/okvLtbJuUCz11CTL8?usp=pp_url&entry.1068490562=" + path;
+    window.location.href = formBaseUrl + code;
   }, 1000);
 
 } else {
@@ -36,5 +51,6 @@ if (!path) {
     "Invalid or expired invitation code.";
 }
 </script>
+
 </body>
 </html>
