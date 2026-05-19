@@ -24,6 +24,7 @@ const invites = {
    Example:
    ?code=ABC123
    ========================= */
+const DEBUG = true;
 const formBaseUrl =
   "https://forms.gle/okvLtbJuUCz11CTL8?usp=pp_url&entry.1068490562=";
 const params = new URLSearchParams(window.location.search);
@@ -35,36 +36,38 @@ const finalUrl = formBaseUrl + code;
    ========================= */
 
 if (!code) {
-  document.getElementById("status").innerText =
+
+  document.getElementById("status").innerHTML =
     "No invitation code provided.";
 
 } else if (invites[code]) {
 
+if (DEBUG) {
+  document.getElementById("status").innerHTML =
+    "Valid invite.<br><br>" +
+    "Redirecting in 30 seconds...<br><br>" +
+    "<code style='word-break:break-all;'>" + finalUrl + "</code>";
+} else {
   document.getElementById("status").innerText =
     "Valid invite. Redirecting...";
+}
+  setTimeout(() => {
+    window.location.href = finalUrl;
+  }, 30000);
 
+} else {
 
-// show debug info on screen
-document.getElementById("status").innerHTML =
-  "Valid invite.<br><br>Redirecting in 30 seconds...<br><br>" +
-  "<code style='word-break:break-all;'>" + finalUrl + "</code>";
-
-setTimeout(() => {
-  window.location.href = finalUrl;
-}, 30000);
-
-
+if (DEBUG) {
+  document.getElementById("status").innerHTML =
+    "Invalid or expired invitation code.<br><br>" +
+    "<code style='word-break:break-all;'>" + finalUrl + "</code>";
 } else {
   document.getElementById("status").innerText =
     "Invalid or expired invitation code.";
-
-// show debug info on screen
-document.getElementById("status").innerHTML =
-  "Valid invite.<br><br>Redirecting in 30 seconds...<br><br>" +
-  "<code style='word-break:break-all;'>" + finalUrl + "</code>";
-
+}
 
 }
+
 </script>
 
 </body>
