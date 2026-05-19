@@ -5,6 +5,8 @@
 </head>
 
 <body style="font-family: Arial; text-align: center; margin-top: 80px;">
+<h2>Welcome to the Mambernetics 2026 Dinner Invitation Portal</h2>  
+<img src="images/logo.jpg" alt="Logo" style="max-width: 200px;">
   <h2>Mambernetics Invitation Check</h2>
   <p id="status">Loading...</p>
 
@@ -90,11 +92,13 @@ function runApp() {
 
     if (DEBUG) {
       document.getElementById("status").innerHTML =
-        "Invalid or inactive invitation code:<br><br>" +
-        "<code style='word-break:break-all;'>" + code + "</code>";
+        "This invitation link appears invalid or expired:<br><br>" +
+        "<code style='word-break:break-all;'>" + code + "</code><br><br>" +
+		"If you believe this is an error, please contact the event organizer.";
     } else {
       document.getElementById("status").innerText =
-        "Invalid or expired invitation code.";
+        "This invitation link appears invalid or expired.<br><br>" +
+		"If you believe this is an error, please contact the event organizer.";
     }
   }
 }
