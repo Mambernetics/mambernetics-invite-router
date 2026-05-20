@@ -64,30 +64,28 @@ function runApp() {
 
   const redirectDelay = DEBUG ? 8000 : 2000;
 
-  code = getCodeFromUrl();
+  const cleanCode = (getCodeFromUrl() || "").trim().toUpperCase();
+  const invite = invites[cleanCode];
 
-  console.log("Code received:", code);
-  console.log("Invites loaded:", invites);
+  if (DEBUG) {
+    console.log("Code received:", cleanCode);
+    console.log("Invite lookup result:", invite);
+  }
 
-  if (!code) {
-
-    document.getElementById("status").innerHTML =
+  if (!cleanCode) {
+    document.getElementById("status").innerText =
       "No invitation code provided.";
-
     return;
   }
 
-  const invite = invites[code];
-
   if (invite && invite.status === "active") {
 
-    const finalUrl = formBaseUrl + code;
+    const finalUrl = formBaseUrl + encodeURIComponent(cleanCode);
 
     if (DEBUG) {
       document.getElementById("status").innerHTML =
         "Valid invite.<br><br>" +
-        "Redirecting in " + (redirectDelay / 1000) + " seconds...<br><br>" +
-        "<code style='word-break:break-all;'>" + finalUrl + "</code>";
+        "Redirecting in " + (redirectDelay / 1000) + " seconds...";
     } else {
       document.getElementById("status").innerText =
         "Valid invite. Redirecting...";
@@ -99,16 +97,8 @@ function runApp() {
 
   } else {
 
-    if (DEBUG) {
-      document.getElementById("status").innerHTML =
-        "This invitation link appears invalid or expired:<br><br>" +
-        "<code style='word-break:break-all;'>" + code + "</code><br><br>" +
-		"If you believe this is an error, please contact the event organizer.";
-    } else {
-      document.getElementById("status").innerText =
-        "This invitation link appears invalid or expired.<br><br>" +
-		"If you believe this is an error, please contact the event organizer.";
-    }
+    document.getElementById("status").innerText =
+      "This invitation link appears invalid or expired.";
   }
 }
 
