@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//ical.marudot.com//iCal Event Maker
+CALSCALE:GREGORIAN
+BEGIN:VTIMEZONE
+TZID:America/New_York
+LAST-MODIFIED:20250410T142247Z
+TZURL:https://www.tzurl.org/zoneinfo-outlook/America/New_York
+X-LIC-LOCATION:America/New_York
+BEGIN:DAYLIGHT
+TZNAME:EDT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZNAME:EST
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTAMP:20260609T152911Z
+UID:1781018896283-48479@ical.marudot.com
+DTSTART;TZID=America/New_York:20260610T203000
+RRULE:FREQ=MONTHLY;BYDAY=2WE;COUNT=3
+DTEND;TZID=America/New_York:20260610T211500
+SUMMARY:Mambernetics Roundtable
+DESCRIPTION:As a way to gear up for Labor Day weekend\, I will be planning to have an online discussion meeting to share information as well\n\nPlease join the voice channel here: \nhttps://discord.com/channels/590368740277747753/1228073980489891953 \n\n\n\n\n\n\n\nThis will be done monthly on the 2nd Wednesday of each month and am asking for new folks to learn about what to expect as well as veterans to help share their experiences as well as staying informed.\n\nDo note that I plan on having a recording along with a transcription of the meeting available as well.
+LOCATION:https://discord.com/channels/590368740277747753/1228073980489891953 
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Mambernetics Roundtable
+TRIGGER:-PT15M
+END:VALARM
+END:VEVENT
+END:VCALENDAR
