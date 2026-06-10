@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//ical.marudot.com//iCal Event Maker
+CALSCALE:GREGORIAN
+BEGIN:VTIMEZONE
+TZID:America/New_York
+LAST-MODIFIED:20250410T142247Z
+TZURL:https://www.tzurl.org/zoneinfo-outlook/America/New_York
+X-LIC-LOCATION:America/New_York
+BEGIN:DAYLIGHT
+TZNAME:EDT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZNAME:EST
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTAMP:20260610T183727Z
+UID:1781116468170-15788@ical.marudot.com
+DTSTART;TZID=America/New_York:20260626T200000
+RRULE:FREQ=MONTHLY;BYDAY=-1FR;COUNT=3
+DTEND;TZID=America/New_York:20260626T210000
+SUMMARY:Mambernetics Dragon Con Watch Party 
+DESCRIPTION:**UPDATED to 8PM EASTERN** I will be doing a monthly get together at 8PM Eastern once a month on the last Friday of the month. The main purpose of this is to expose folks to a variety of different things one might do at Dragon Con as well as get a vibe feeling and such by presenting a curated list of videos from DragonConTV and Youtube.\nWhen I did this last time\, the sound for this wasn't great in Discord so this time I am going to try in teams. Here is the link:\nhttps://teams.microsoft.com/meet/29594567120815?p=dhVJ9U2tDfLfxPLXUo\n
+LOCATION:https://teams.microsoft.com/meet/29594567120815?p=dhVJ9U2tDfLfxPLXUo
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Mambernetics Dragon Con Watch Party 
+TRIGGER:-PT15M
+END:VALARM
+END:VEVENT
+END:VCALENDAR
