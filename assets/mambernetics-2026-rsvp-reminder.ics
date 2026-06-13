@@ -1,0 +1,38 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//ical.marudot.com//iCal Event Maker
+CALSCALE:GREGORIAN
+BEGIN:VTIMEZONE
+TZID:America/New_York
+LAST-MODIFIED:20250410T142247Z
+TZURL:https://www.tzurl.org/zoneinfo-outlook/America/New_York
+X-LIC-LOCATION:America/New_York
+BEGIN:DAYLIGHT
+TZNAME:EDT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZNAME:EST
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTAMP:20260613T131339Z
+UID:1781356375711-17857@ical.marudot.com
+DTSTART;TZID=America/New_York:20260826T200000
+DTEND;TZID=America/New_York:20260826T200000
+SUMMARY:Mambernetics Dinner - RSVP Changes Due
+DESCRIPTION:Final day to make changes to your Mambernetics Dinner RSVP is August 27th.\n\nIf your attendance\, guest count\, meal selection\, dietary needs\, or other dinner-related details have changed\, please update your RSVP or contact Scott today.\n\nWhile changes after the 27th cannot be guaranteed\, please still reach out if your plans change. Depending on circumstances\, cancellations\, or other adjustments\, accommodations may still be possible and/or appreciated.\n\nDinner:\nThursday\, September 3\, 2026\nMingling: 4:30 PM\nDinner: 5:00 PM\n\nNeed to update your RSVP? Contact Scott using your preferred Mambernetics communication method or scott@mambernetics.com as a last resort.\n
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Mambernetics Dinner - RSVP Changes Due
+TRIGGER:-PT0M
+END:VALARM
+END:VEVENT
+END:VCALENDAR
