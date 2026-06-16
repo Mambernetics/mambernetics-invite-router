@@ -71,3 +71,55 @@ h1 {
   margin: 40px auto;
   padding: 0 20px;
 }
+
+
+
+/* layout for calendar grid like */
+
+<style>
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  @media (min-width: 768px) {
+    .calendar-grid {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+
+  .calendar-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 16px;
+    background: #fafafa;
+
+    /* 🔥 THIS is the important fix */
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .calendar-card h4 {
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+
+  /* 🔥 HARD CONTAIN BUTTONS */
+  .calendar-card a {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .btn-block {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+
+    margin: 8px 0;
+    text-align: center;
+    white-space: normal; /* prevents long text overflow */
+  }
+</style>
